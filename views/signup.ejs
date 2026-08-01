@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container" style="max-width: 400px; padding-top: 60px;">
+    <h2>Create an Account</h2>
+    <form action="/auth/signup" method="POST" style="display:flex; flex-direction:column; gap:12px;">
+      <label>Username
+        <input type="text" name="username" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+      </label>
+      <label>Email
+        <input type="email" name="email" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+      </label>
+      <label>Phone (e.g. 03001234567)
+        <input type="tel" name="phone" pattern="03[0-9]{9}" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+      </label>
+      <label>Password
+        <input type="password" name="password" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+      </label>
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+    <p style="margin-top:16px; font-size:14px;">Already have an account? <a href="/auth/login">Log in</a></p>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

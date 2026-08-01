@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manage Users</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <div class="container" style="padding-top: 24px;">
+    <h2>All Users</h2>
+    <p><a href="/admin">← Back to Dashboard</a></p>
+
+    <ul style="list-style:none; padding:0;">
+      <% users.forEach(user => { %>
+        <li style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <strong><%= user.username %></strong>
+            <span style="color:var(--color-muted); font-size:13px;">(<%= user.email %>)</span>
+            <% if (user.isBanned) { %>
+              <br><span class="stamp stamp-lost" style="margin-top:6px; display:inline-block;">BANNED until <%= user.banExpiresAt.toLocaleString() %></span>
+            <% } %>
+          </div>
+          <div>
+            <% if (user.isBanned) { %>
+              <form action="/admin/users/<%= user._id %>/unban" method="POST" style="display:inline">
+                <button type="submit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;">Unban</button>
+              </form>
+            <% } else { %>
+              <form action="/admin/users/<%= user._id %>/ban" method="POST" style="display:inline-flex; gap:6px; align-items:center;">
+                <select name="days" style="padding:6px; border-radius:6px; border:1px solid var(--color-border);">
+                  <option value="1">1 day</option>
+                  <option value="3">3 days</option>
+                  <option value="7">1 week</option>
+                </select>
+                <button type="submit" class="btn-danger" style="border-radius:6px; padding:6px 10px; font-size:13px; color:#fff; border:none;">Ban</button>
+              </form>
+            <% } %>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

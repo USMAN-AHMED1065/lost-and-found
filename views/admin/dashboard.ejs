@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/navbar') %>
+
+  <div class="container" style="padding-top: 24px;">
+    <h2>Admin Dashboard</h2>
+    <p><a href="/admin/users">Manage Users →</a></p>
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; margin: 20px 0;">
+      <div style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:16px; min-width:140px;">
+        <div style="font-size:24px; font-weight:700; font-family:'Sora',sans-serif;"><%= totalUsers %></div>
+        <div style="color:var(--color-muted); font-size:13px;">Total Users</div>
+      </div>
+      <div style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:16px; min-width:140px;">
+        <div style="font-size:24px; font-weight:700; font-family:'Sora',sans-serif;"><%= totalItems %></div>
+        <div style="color:var(--color-muted); font-size:13px;">Total Items</div>
+      </div>
+      <div style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:16px; min-width:140px;">
+        <div style="font-size:24px; font-weight:700; font-family:'Sora',sans-serif;"><%= bannedUsers %></div>
+        <div style="color:var(--color-muted); font-size:13px;">Banned Users</div>
+      </div>
+    </div>
+
+    <h3>Reported Posts</h3>
+    <% if (reportedPosts.length === 0) { %>
+      <p style="color:var(--color-muted);">No reported posts right now.</p>
+    <% } else { %>
+      <ul style="list-style:none; padding:0;">
+        <% reportedPosts.forEach(post => { %>
+          <li style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:14px; margin-bottom:10px;">
+            <strong><%= post.title %></strong> — <%= post.reportCount %> report(s)<br>
+            <span style="color:var(--color-muted); font-size:13px;">Posted by: <%= post.postedBy ? post.postedBy.username : 'Unknown' %></span><br>
+            <form action="/admin/posts/<%= post._id %>/delete" method="POST" style="margin-top:8px;">
+              <button type="submit" class="btn-danger" style="border-radius:6px; padding:6px 10px; font-size:13px; color:#fff; border:none;">Delete this post</button>
+            </form>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

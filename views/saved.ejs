@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Saved Items</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container" style="padding-top: 24px;">
+    <h2>Your Saved Items</h2>
+    <ul class="posts-grid">
+      <% posts.forEach(post => { %>
+        <% if (post) { %>
+          <li class="post-card">
+            <span class="stamp <%= post.resolved ? 'stamp-resolved' : (post.type === 'lost' ? 'stamp-lost' : 'stamp-found') %>">
+              <%= post.resolved ? 'RESOLVED' : post.type.toUpperCase() %>
+            </span>
+            <h3 style="margin-top:10px;"><%= post.title %></h3>
+            <% if (post.imageUrl) { %>
+              <img src="<%= post.imageUrl %>">
+            <% } %>
+            <p><%= post.description %></p>
+            <em style="color: var(--color-muted); font-size: 13px;"><%= post.location %></em>
+            <p style="font-size:13px; margin-top:8px;">Contact: <%= post.contactPhone %> | <%= post.contactEmail %></p>
+            <form action="/posts/<%= post._id %>/unsave?_method=POST" method="POST" style="display:inline">
+              <button type="submit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;">Remove from saved</button>
+            </form>
+            <% if (post.postedBy && post.postedBy._id.toString() === userId) { %>
+              <form action="/posts/<%= post._id %>/resolve?_method=POST" method="POST" style="display:inline; margin-left:6px;">
+                <button type="submit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;"><%= post.resolved ? '↩️ Reopen' : '✅ Resolve' %></button>
+              </form>
+            <% } %>
+          </li>
+        <% } %>
+      <% }); %>
+    </ul>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

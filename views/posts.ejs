@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Posts</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div class="container" style="padding-top: 24px;">
+    <h2>Lost &amp; Found Items</h2>
+    <!-- Filter/Search Form -->
+    <form action="/posts" method="GET" class="filter-bar">
+      <select name="type">
+        <option value="" <%= currentType === '' ? 'selected' : '' %>>All Types</option>
+        <option value="lost" <%= currentType === 'lost' ? 'selected' : '' %>>Lost</option>
+        <option value="found" <%= currentType === 'found' ? 'selected' : '' %>>Found</option>
+      </select>
+      <input type="text" name="search" placeholder="Search title or description..." value="<%= currentSearch %>">
+      <button type="submit" class="btn">Filter</button>
+      <a href="/posts">Clear</a>
+    </form>
+    <!-- Posts -->
+    <ul class="posts-grid">
+      <% posts.forEach(post => { %>
+        <li class="post-card">
+          <span class="stamp <%= post.resolved ? 'stamp-resolved' : (post.type === 'lost' ? 'stamp-lost' : 'stamp-found') %>">
+            <%= post.resolved ? 'RESOLVED' : post.type.toUpperCase() %>
+          </span>
+          <h3 style="margin-top:10px;"><%= post.title %></h3>
+          <% if (post.imageUrl) { %>
+            <img src="<%= post.imageUrl %>" alt="<%= post.title %>">
+          <% } %>
+          <p><%= post.description %></p>
+          <em style="color: var(--color-muted); font-size: 13px;"><%= post.location %></em>
+          <% if (post.postedBy) { %>
+            <p style="font-size:13px; color: var(--color-muted); margin: 8px 0 0;">
+              Posted by <%= post.postedBy.username %>
+            </p>
+            <div class="contact-options">
+              <a href="tel:<%= post.contactPhone %>">📞 Call</a>
+              <a href="https://wa.me/92<%= post.contactPhone.slice(1) %>" target="_blank">💬 WhatsApp</a>
+              <button type="button" class="copy-btn" data-phone="<%= post.contactPhone %>">📋 Copy</button>
+            </div>
+            <% if (isLoggedIn && post.postedBy._id.toString() !== userId) { %>
+              <form action="/posts/<%= post._id %>/report?_method=POST" method="POST" style="display:inline; margin-top:8px;">
+                <button type="submit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;">🚩 Report</button>
+              </form>
+            <% } %>
+            <% if (isLoggedIn) { %>
+              <% const isSaved = savedIds.includes(post._id.toString()); %>
+              <form action="/posts/<%= post._id %>/<%= isSaved ? 'unsave' : 'save' %>?_method=POST" method="POST" style="display:inline; margin-top:8px;">
+                <button type="submit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;"><%= isSaved ? '✅ Saved' : '🔖 Save' %></button>
+              </form>
+            <% } %>
+          <% } else { %>
+            <p style="font-size:13px; color: var(--color-muted);">Posted by: Unknown</p>
+          <% } %>
+          <% if (isLoggedIn && post.postedBy && post.postedBy._id.toString() === userId) { %>
+            <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+              <a href="/posts/<%= post._id %>/edit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;">Edit</a>
+              <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display:inline">
+                <button type="submit" class="btn-danger" style="border-radius:6px; padding:6px 10px; font-size:13px; color:#fff;">Delete</button>
+              </form>
+              <form action="/posts/<%= post._id %>/resolve?_method=POST" method="POST" style="display:inline">
+                <button type="submit" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;"><%= post.resolved ? '↩️ Reopen' : '✅ Resolve' %></button>
+              </form>
+              <a href="/posts/<%= post._id %>/matches" class="btn-outline" style="border-radius:6px; padding:6px 10px; font-size:13px;">🔍 Matches</a>
+            </div>
+          <% } %>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+  <%- include('partials/footer') %>
+  <script>
+    document.querySelectorAll(".copy-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        navigator.clipboard.writeText(button.dataset.phone)
+          .then(() => alert("Phone number copied!"))
+          .catch(() => alert("Failed to copy number."));
+      });
+    });
+  </script>
+</body>
+</html>

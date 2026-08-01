@@ -1,0 +1,22 @@
+<header class="navbar">
+  <div class="brand">
+    <img src="/images/logo.png" alt="UET Logo">
+    <div>
+      Lost &amp; Found
+      <span class="tagline">UET Lahore</span>
+    </div>
+  </div>
+  <nav>
+    <a href="/posts">Browse Items</a>
+    <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn) { %>
+      <a href="/posts/new">+ Report an item</a>
+      <a href="/posts/saved">Saved</a>
+      <a href="/profile">Profile</a>
+      <a href="/auth/logout">Log out</a>
+    <% } else { %>
+      <a href="/auth/login">Log in</a>
+      <a href="/auth/signup">Sign up</a>
+    <% } %>
+    <button id="theme-toggle" class="theme-toggle" type="button">🌙 Dark</button>
+  </nav>
+</header>

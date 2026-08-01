@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Possible Matches</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container" style="padding-top: 24px;">
+    <h2>Possible Matches for: <%= sourcePost.title %></h2>
+
+    <% if (matches.length === 0) { %>
+      <p>No likely matches found yet. Check back later.</p>
+    <% } else { %>
+      <ul class="posts-grid">
+        <% matches.forEach(match => { %>
+          <li class="post-card">
+            <span class="stamp stamp-found" style="font-size:13px;"><%= match.score %>% MATCH</span>
+            <h3 style="margin-top:10px;"><%= match.post.title %></h3>
+            <% if (match.post.imageUrl) { %>
+              <img src="<%= match.post.imageUrl %>">
+            <% } %>
+            <p><%= match.post.description %></p>
+            <em style="color: var(--color-muted); font-size: 13px;"><%= match.post.location %></em>
+            <p style="font-size:13px; margin-top:8px;">Contact: <%= match.post.contactPhone %> | <%= match.post.contactEmail %></p>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
