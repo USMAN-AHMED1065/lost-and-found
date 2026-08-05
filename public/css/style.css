@@ -220,3 +220,105 @@ footer {
   color: var(--color-muted);
   font-size: 13px;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  body {
+    font-size: 17px;
+  }
+
+  h1 { font-size: 26px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 18px; }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+  .navbar .brand {
+    font-size: 20px;
+  }
+  .navbar .brand img {
+    height: 36px;
+  }
+  .navbar nav {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+  .navbar nav a {
+    padding: 12px 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    background: var(--color-bg);
+  }
+  .theme-toggle {
+    margin-top: 8px;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 0 14px;
+  }
+
+  .posts-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .post-card {
+    padding: 18px;
+    padding-top: 24px;
+  }
+  .post-card img {
+    height: 220px;
+  }
+  .post-card h3 {
+    font-size: 19px;
+  }
+  .post-card p {
+    font-size: 16px;
+  }
+
+  .stamp {
+    font-size: 13px;
+    padding: 5px 12px;
+  }
+
+  .btn, .btn-outline, .btn-danger {
+    padding: 12px 18px;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .contact-options {
+    flex-direction: column;
+  }
+  .contact-options a, .contact-options button {
+    padding: 12px;
+    font-size: 15px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+  }
+  .filter-bar select, .filter-bar input, .filter-bar button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  form label {
+    font-size: 16px;
+  }
+  form input, form textarea, form select {
+    font-size: 16px !important;
+    padding: 12px !important;
+  }
+}
