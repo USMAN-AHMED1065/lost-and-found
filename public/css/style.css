@@ -227,47 +227,65 @@ footer {
     font-size: 17px;
   }
 
-  h1 { font-size: 26px; }
-  h2 { font-size: 22px; }
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
   h3 { font-size: 18px; }
 
+  /* Header / Navbar */
   .navbar {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     padding: 16px;
+    gap: 10px;
   }
   .navbar .brand {
-    font-size: 20px;
+    font-size: 19px;
+    justify-content: center;
+    text-align: center;
   }
   .navbar .brand img {
-    height: 36px;
+    height: 34px;
+  }
+  .navbar .tagline {
+    text-align: center;
   }
   .navbar nav {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
-    gap: 4px;
+    gap: 8px;
   }
   .navbar nav a {
-    padding: 12px 10px;
+    display: block;
+    padding: 12px 14px;
     font-size: 16px;
+    font-weight: 500;
     border-radius: 8px;
-    background: var(--color-bg);
+    background: var(--color-primary);
+    color: #fff;
+    text-align: center;
+    border: 1px solid var(--color-primary-dark);
+  }
+  .navbar nav a:hover {
+    text-decoration: none;
+    background: var(--color-primary-dark);
   }
   .theme-toggle {
-    margin-top: 8px;
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 15px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
   }
 
   .container {
     padding: 0 14px;
   }
 
+  /* Single column, clearer cards */
   .posts-grid {
     grid-template-columns: 1fr;
-    gap: 14px;
+    gap: 16px;
   }
   .post-card {
     padding: 18px;
@@ -288,23 +306,47 @@ footer {
     padding: 5px 12px;
   }
 
-  .btn, .btn-outline, .btn-danger {
-    padding: 12px 18px;
-    font-size: 16px;
-    width: 100%;
-    text-align: center;
-  }
-
+  /* Contact buttons — clearer, bigger, distinct colors */
   .contact-options {
     flex-direction: column;
+    gap: 10px;
   }
   .contact-options a, .contact-options button {
-    padding: 12px;
-    font-size: 15px;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: 500;
     text-align: center;
     width: 100%;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+  }
+  .contact-options a[href^="tel:"] {
+    background: var(--color-primary);
+  }
+  .contact-options a[href^="https://wa.me"] {
+    background: #2E8B57;
+  }
+  .contact-options .copy-btn {
+    background: var(--color-muted);
   }
 
+  /* Report / Save / Edit / Delete / Resolve / Matches buttons */
+  .btn, .btn-outline, .btn-danger {
+    padding: 13px 18px;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+  }
+  .btn-outline {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  /* Filter bar */
   .filter-bar {
     flex-direction: column;
   }
@@ -314,6 +356,7 @@ footer {
     font-size: 16px;
   }
 
+  /* Forms */
   form label {
     font-size: 16px;
   }
