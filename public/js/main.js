@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Copy phone number to clipboard
   document.querySelectorAll('.copy-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const phone = btn.getAttribute('data-phone');
@@ -11,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(err => console.error('Copy failed:', err));
     });
   });
-});
-document.addEventListener('DOMContentLoaded', () => {
+
+  // Lightbox: open full-size photo on click
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const closeBtn = document.getElementById('lightbox-close');
