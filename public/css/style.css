@@ -112,20 +112,57 @@ a:hover { text-decoration: underline; }
   background: var(--color-primary);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 9px 16px;
+  border-radius: 10px;
+  padding: 11px 20px;
   font-family: 'Public Sans', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--color-primary-dark), 0 6px 10px rgba(28, 36, 43, 0.15);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.btn:hover {
+  background: var(--color-primary);
+  text-decoration: none;
+}
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 4px rgba(28, 36, 43, 0.15);
+}
+
+.btn-outline {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-weight: 600;
   font-size: 14px;
   cursor: pointer;
+  box-shadow: 0 3px 0 var(--color-border), 0 4px 8px rgba(28, 36, 43, 0.1);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
 }
-.btn:hover { background: var(--color-primary-dark); text-decoration: none; }
-.btn-outline {
-  background: transparent;
-  color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+.btn-outline:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--color-border), 0 2px 4px rgba(28, 36, 43, 0.1);
 }
-.btn-danger { background: #B4483A; }
+
+.btn-danger {
+  background: #B4483A;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #8A362B, 0 6px 10px rgba(28, 36, 43, 0.15);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+.btn-danger:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #8A362B, 0 2px 4px rgba(28, 36, 43, 0.15);
+}
 
 /* Claim-tag post card */
 .posts-grid {
@@ -255,20 +292,24 @@ footer {
     align-items: stretch;
     gap: 8px;
   }
-  .navbar nav a {
+.navbar nav a {
     display: block;
-    padding: 12px 14px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 10px;
     background: var(--color-primary);
     color: #fff;
     text-align: center;
-    border: 1px solid var(--color-primary-dark);
+    box-shadow: 0 4px 0 var(--color-primary-dark), 0 6px 10px rgba(28, 36, 43, 0.15);
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
   }
   .navbar nav a:hover {
     text-decoration: none;
-    background: var(--color-primary-dark);
+  }
+  .navbar nav a:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 4px rgba(28, 36, 43, 0.15);
   }
   .theme-toggle {
     width: 100%;
