@@ -5,8 +5,8 @@
   --color-surface: #FFFFFF;
   --color-primary: #2C5F63;
   --color-primary-dark: #1E4245;
-  --color-accent-lost: #C7622D;
-  --color-accent-found: #3C7A5C;
+  --color-accent-lost: #e02f2f;
+  --color-accent-found: #3e7a3c;
   --color-ink: #1C242B;
   --color-muted: #667085;
   --color-border: #E2E5E9;
@@ -217,11 +217,11 @@ a:hover { text-decoration: underline; }
 .stamp {
   display: inline-block;
   font-family: 'Sora', sans-serif;
-  font-weight: 700;
-  font-size: 11px;
+  font-weight: 900;
+  font-size: 15px;
   letter-spacing: 0.08em;
-  padding: 3px 10px;
-  border-radius: 4px;
+  padding: 7px 16px;
+  border-radius: 10px;
   border: 1.5px solid currentColor;
   transform: rotate(-2deg);
 }
@@ -372,8 +372,8 @@ footer {
   }
 
   .stamp {
-    font-size: 13px;
-    padding: 5px 12px;
+    font-size: 16px;
+    padding: 9px 16px;
   }
 
   .contact-options {

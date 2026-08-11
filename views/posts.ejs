@@ -35,13 +35,13 @@
             <img src="<%= post.imageUrl %>" alt="<%= post.title %>">
           <% } %>
 
-          <p><%= post.description %></p>
-          <em style="color: var(--color-muted); font-size: 13px;"><%= post.location %></em>
+          <p>Description: <%= post.description %></p>
+          <em style="color: var(--color-muted); font-size: 13px;">Location: <%= post.location %></em>
 
           <% if (post.postedBy) { %>
             <p style="font-size:13px; color: var(--color-muted); margin: 8px 0 0;">
-              Posted by <%= post.postedBy.username %>
-            </p>
+              Posted by: <%= post.postedBy.username %>
+            </p> 
 
             <div class="contact-options">
               <a href="tel:<%= post.contactPhone %>">📞 Call</a>
