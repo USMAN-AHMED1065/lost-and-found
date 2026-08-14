@@ -496,3 +496,54 @@ footer {
   content: '📍';
   font-size: 16px;
 }
+
+
+
+#page-loader {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--color-bg);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  text-align: center;
+  padding: 20px;
+}
+#page-loader img {
+  height: 64px;
+  width: auto;
+  margin-bottom: 6px;
+}
+.loader-title {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--color-primary);
+  margin: 0;
+}
+.loader-subtitle {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 13px;
+  color: var(--color-muted);
+  margin: 0 0 16px;
+}
+.loader-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+#page-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
