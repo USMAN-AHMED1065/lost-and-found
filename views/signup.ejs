@@ -19,14 +19,25 @@
       <label>Phone (e.g. 03001234567)
         <input type="tel" name="phone" pattern="03[0-9]{9}" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
-      <label>Password
+      <!-- <label>Password
         <input type="password" name="password" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
-      </label>
+      </label> -->
+
+      <label>Password
+  <div class="password-field">
+    <input type="password" name="password" id="password" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+    <button type="button" class="password-toggle" onclick="togglePassword('password', this)">👁️</button>
+  </div>
+</label>
+
+
       <button type="submit" class="btn">Sign Up</button>
     </form>
     <p style="margin-top:16px; font-size:14px;">Already have an account? <a href="/auth/login">Log in</a></p>
   </div>
 
   <%- include('partials/footer') %>
+
+  <script src="/js/main.js"></script>
 </body>
 </html>
