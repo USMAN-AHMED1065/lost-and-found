@@ -13,9 +13,13 @@
       <label>Username
         <input type="text" name="username" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
-      <label>Email
+      <!-- <label>Email
         <input type="email" name="email" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
-      </label>
+      </label> -->
+<label>University Email (e.g. [email protected])
+  <input type="email" name="email" required pattern="^[a-zA-Z0-9._-]+@student\.uet\.edu\.pk$" title="Must be a valid student.uet.edu.pk email" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+</label>
+
       <label>Phone (e.g. 03001234567)
         <input type="tel" name="phone" pattern="03[0-9]{9}" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>

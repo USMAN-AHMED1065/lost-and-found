@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const { isValidPakistaniPhone, isValidEmail } = require('../utils/validators');
+// const { isValidPakistaniPhone, isValidEmail } = require('../utils/validators');
+const { isValidPakistaniPhone, isValidUniversityEmail } = require('../utils/validators');
 
 // Show signup form
 router.get('/signup', (req, res) => {
@@ -10,12 +11,58 @@ router.get('/signup', (req, res) => {
 });
 
 // Handle signup
+// router.post('/signup', async (req, res) => {
+//   try {
+//     const { username, email, password, phone } = req.body;
+
+//     if (!isValidEmail(email)) {
+//       return res.status(400).send('Invalid email format');
+//     }
+//     if (!isValidPakistaniPhone(phone)) {
+//       return res.status(400).send('Phone must be an 11-digit Pakistani number starting with 03 (e.g. 03001234567)');
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const newUser = new User({ username, email, password: hashedPassword, phone });
+//     await newUser.save();
+//     req.session.userId = newUser._id;
+//     res.redirect('/posts');
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Error signing up — username or email may already exist');
+//   }
+// });
+
+// router.post('/signup', async (req, res) => {
+//   try {
+//     const { username, email, password, phone } = req.body;
+
+//     if (!isValidUniversityEmail(email)) {
+//       return res.status(400).send('You must sign up with your university email (format: [email protected])');
+//     }
+//     if (!isValidPakistaniPhone(phone)) {
+//       return res.status(400).send('Phone must be an 11-digit Pakistani number starting with 03 (e.g. 03001234567)');
+//     }
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const newUser = new User({ username, email, password: hashedPassword, phone });
+//     await newUser.save();
+//     req.session.userId = newUser._id;
+//     res.redirect('/posts');
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Error signing up — username or email may already exist');
+//   }
+// });
+
+
+
 router.post('/signup', async (req, res) => {
   try {
     const { username, email, password, phone } = req.body;
 
-    if (!isValidEmail(email)) {
-      return res.status(400).send('Invalid email format');
+    if (!isValidUniversityEmail(email)) {
+      return res.status(400).send('You must sign up with your university email (format: [email protected])');
     }
     if (!isValidPakistaniPhone(phone)) {
       return res.status(400).send('Phone must be an 11-digit Pakistani number starting with 03 (e.g. 03001234567)');
@@ -27,10 +74,12 @@ router.post('/signup', async (req, res) => {
     req.session.userId = newUser._id;
     res.redirect('/posts');
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error signing up — username or email may already exist');
+    console.error('SIGNUP ERROR:', err);
+    res.status(500).send('Error signing up: ' + err.message);
   }
 });
+
+
 
 // Show login form
 router.get('/login', (req, res) => {
