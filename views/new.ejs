@@ -10,12 +10,19 @@
   <div class="container" style="max-width: 500px; padding-top: 40px;">
     <h2>Report a Lost or Found Item</h2>
     <form action="/posts" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:12px;">
-      <label>Type
+      <!-- <label>Type
         <select name="type" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
           <option value="lost">Lost</option>
           <option value="found">Found</option>
         </select>
-      </label>
+      </label> -->
+
+      <label>Type
+  <select name="type" id="post-type" onchange="toggleVerificationField()" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+    <option value="lost">Lost</option>
+    <option value="found">Found</option>
+  </select>
+</label>
       <label>Title
         <input type="text" name="title" placeholder="Name of item" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
@@ -31,9 +38,17 @@
       <label>Contact Phone
         <input type="tel" name="contactPhone" value="<%= user.phone %>" pattern="03[0-9]{9}" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
-      <label>Verification Question (found items only — kept private, used to confirm the real owner)
+      <!-- <label>Verification Question (found items only — kept private, used to confirm the real owner)
   <input type="text" name="verificationQuestion" placeholder="e.g. What's written inside the wallet?" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
-</label>
+</label> -->
+<div id="verification-field" style="display:none;">
+  <label>Verification Question (found items only — kept private, used to confirm the real owner)
+    <input type="text" name="verificationQuestion" placeholder="e.g. What's written inside the wallet?" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+  </label>
+</div>
+
+
+
       <label>Contact Email
         <input type="email" name="contactEmail" value="<%= user.email %>" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
@@ -42,5 +57,16 @@
   </div>
 
   <%- include('partials/footer') %>
+
+
+  <script>
+  function toggleVerificationField() {
+    const type = document.getElementById('post-type').value;
+    const field = document.getElementById('verification-field');
+    field.style.display = (type === 'found') ? 'block' : 'none';
+  }
+  // Run once on page load too, in case the browser remembers a previous selection
+  toggleVerificationField();
+</script>
 </body>
 </html>
