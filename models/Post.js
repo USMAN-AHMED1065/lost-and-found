@@ -11,8 +11,16 @@ const postSchema = new mongoose.Schema({
   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   reportCount: { type: Number, default: 0 },
   reportedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-  createdAt: { type: Date, default: Date.now },
-  resolved: { type: Boolean, default: false }
+  resolved: { type: Boolean, default: false },
+  verificationQuestion: { type: String, default: '' },
+  claims: [{
+    claimedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    message: { type: String, required: true },
+    answer: { type: String, default: '' },
+    status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
+    createdAt: { type: Date, default: Date.now }
+  }],
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Post', postSchema);

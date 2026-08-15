@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Claims on <%= post.title %></title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container" style="padding-top: 24px;">
+    <h2>Claims for: <%= post.title %></h2>
+    <a href="/posts">← Back to posts</a>
+
+    <% if (post.claims.length === 0) { %>
+      <p style="margin-top:20px; color: var(--color-muted);">No claims yet.</p>
+    <% } else { %>
+      <ul style="list-style:none; padding:0; margin-top:20px;">
+        <% post.claims.forEach(claim => { %>
+          <li style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:16px; margin-bottom:12px;">
+            <strong><%= claim.claimedBy.username %></strong>
+            <span class="stamp <%= claim.status === 'approved' ? 'stamp-found' : (claim.status === 'rejected' ? 'stamp-lost' : 'stamp-resolved') %>" style="margin-left:8px;">
+              <%= claim.status.toUpperCase() %>
+            </span>
+            <p style="margin: 8px 0;"><%= claim.message %></p>
+            <!-- <p style="font-size:13px; color: var(--color-muted);">
+              Contact: <%= claim.claimedBy.phone %> | <%= claim.claimedBy.email %>
+            </p> -->
+
+
+
+
+
+            <p style="font-size:13px; color: var(--color-muted);">
+
+
+
+                <% if (claim.answer) { %>
+  <p style="font-size:14px; background: var(--color-bg); padding:8px; border-radius:6px; margin-top:6px;">
+    <strong>Answer to your question:</strong> <%= claim.answer %>
+  </p>
+<% } %>
+  Contact: <%= claim.claimedBy.phone %> | <%= claim.claimedBy.email %>
+</p>
+
+<% if (claim.status === 'approved') { %>
+  <div class="contact-options">
+    <a href="tel:<%= claim.claimedBy.phone %>">📞 Call</a>
+    <a href="https://wa.me/92<%= claim.claimedBy.phone.slice(1) %>" target="_blank">💬 WhatsApp</a>
+    <button type="button" class="copy-btn" data-phone="<%= claim.claimedBy.phone %>">📋 Copy</button>
+  </div>
+<% } %>
+
+            <% if (claim.status === 'pending') { %>
+              <div class="action-row">
+                <form action="/posts/<%= post._id %>/claims/<%= claim._id %>/approve" method="POST">
+                  <button type="submit" class="btn">✅ Approve</button>
+                </form>
+                <form action="/posts/<%= post._id %>/claims/<%= claim._id %>/reject" method="POST">
+                  <button type="submit" class="btn-danger">❌ Reject</button>
+                </form>
+              </div>
+            <% } %>
+          </li>
+        <% }); %>
+      </ul>
+
+<% if (post.claims.some(c => c.status === 'pending')) { %>
+  <form action="/posts/<%= post._id %>/no-match" method="POST" style="margin-top:16px;">
+    <button type="submit" class="btn-outline">None of these are mine — Reopen for more claims</button>
+  </form>
+<% } %>
+
+
+    <% } %>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

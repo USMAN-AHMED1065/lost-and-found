@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Claims</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container" style="padding-top: 24px;">
+    <h2>My Claims</h2>
+
+    <% if (myClaims.length === 0) { %>
+      <p style="color: var(--color-muted);">You haven't claimed any items yet.</p>
+    <% } else { %>
+      <ul style="list-style:none; padding:0;">
+        <% myClaims.forEach(function(item) { %>
+          <% const post = item.post; %>
+          <% const claim = item.claim; %>
+          <li style="background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:16px; margin-bottom:12px;">
+            <strong><%= post.title %></strong>
+            <span class="stamp <%= claim.status === 'approved' ? 'stamp-found' : (claim.status === 'rejected' ? 'stamp-lost' : 'stamp-resolved') %>" style="margin-left:8px;">
+              <%= claim.status.toUpperCase() %>
+            </span>
+            <p style="margin:8px 0; font-size:14px; color:var(--color-muted);">Your message: <%= claim.message %></p>
+
+            <% if (claim.status === 'approved') { %>
+              <p style="font-size:13px;">Contact the finder: <%= post.postedBy.phone %> | <%= post.postedBy.email %></p>
+              <div class="contact-options">
+                <a href="tel:<%= post.postedBy.phone %>">📞 Call</a>
+                <a href="https://wa.me/92<%= post.postedBy.phone.slice(1) %>" target="_blank">💬 WhatsApp</a>
+                <button type="button" class="copy-btn" data-phone="<%= post.postedBy.phone %>">📋 Copy</button>
+              </div>
+            <% } else if (claim.status === 'rejected') { %>
+              <p style="font-size:13px; color: var(--color-muted);">This claim was not approved.</p>
+            <% } else { %>
+              <p style="font-size:13px; color: var(--color-muted);">Waiting for the finder to review your claim.</p>
+            <% } %>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>

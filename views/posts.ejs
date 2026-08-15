@@ -36,12 +36,10 @@
           <% } %>
 
           <p>Description: <%= post.description %></p>
-          <!-- <em style="color: var(--color-muted); font-size: 13px;">Location: <%= post.location %></em> -->
 
-<% if (post.location) { %>
-  <div class="location-box">Location: <%= post.location %></div>
-<% } %>
-
+          <% if (post.location) { %>
+            <div class="location-box">Location: <%= post.location %></div>
+          <% } %>
 
           <% if (post.postedBy) { %>
             <p style="font-size:13px; color: var(--color-muted); margin: 8px 0 0;">
@@ -67,10 +65,46 @@
                   <button type="submit" class="btn-outline"><%= isSaved ? '✅ Saved' : '🔖 Save' %></button>
                 </form>
               <% } %>
+
+              <!-- Claim button (non-owners, found + unresolved only) -->
+              <% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
+                <!-- <a href="#" class="btn-outline" onclick="document.getElementById('claim-form-<%= post._id %>').style.display='block'; return false;">🙋 This is mine</a> -->
+              <button type="button" class="btn-outline" onclick="document.getElementById('claim-form-<%= post._id %>').style.display='block';">🙋 This is mine</button>
+
+              <% } %>
             </div>
+
+            <!-- Hidden claim form -->
+            <!-- <% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
+              <div id="claim-form-<%= post._id %>" style="display:none; margin-top:10px;">
+                <form action="/posts/<%= post._id %>/claim" method="POST">
+                  <textarea name="message" placeholder="Describe why this item is yours (e.g. unique marks, what's inside)..." required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:70px;"></textarea>
+                  <button type="submit" class="btn" style="margin-top:6px;">Submit Claim</button>
+                </form>
+              </div>
+            <% } %>
           <% } else { %>
             <p style="font-size:13px; color: var(--color-muted);">Posted by: Unknown</p>
-          <% } %>
+          <% } %> -->
+
+<% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
+  <div id="claim-form-<%= post._id %>" style="display:none; margin-top:10px;">
+    <form action="/posts/<%= post._id %>/claim" method="POST">
+      <textarea name="message" placeholder="Describe why this item is yours..." required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:70px;"></textarea>
+
+      <% if (post.verificationQuestion) { %>
+        <label style="display:block; margin-top:8px; font-size:14px; font-weight:600;">
+          <%= post.verificationQuestion %>
+        </label>
+        <input type="text" name="answer" required placeholder="Your answer..." style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+      <% } %>
+
+      <button type="submit" class="btn" style="margin-top:6px;">Submit Claim</button>
+    </form>
+  </div>
+<% } %>
+
+
 
           <% if (isLoggedIn && post.postedBy && post.postedBy._id.toString() === userId) { %>
             <div class="action-row">
@@ -82,6 +116,11 @@
                 <button type="submit" class="btn-outline"><%= post.resolved ? '↩️ Reopen' : '✅ Resolve' %></button>
               </form>
               <a href="/posts/<%= post._id %>/matches" class="btn-outline">🔍 Matches</a>
+
+              <!-- View Claims link (owners only, if claims exist) -->
+              <% if (post.claims && post.claims.length > 0) { %>
+                <a href="/posts/<%= post._id %>/claims" class="btn-outline">📋 View Claims (<%= post.claims.length %>)</a>
+              <% } %>
             </div>
           <% } %>
         </li>

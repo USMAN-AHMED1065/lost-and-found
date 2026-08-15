@@ -17,10 +17,10 @@
         </select>
       </label>
       <label>Title
-        <input type="text" name="title" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+        <input type="text" name="title" placeholder="Name of item" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
       <label>Description
-        <textarea name="description" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:90px;"></textarea>
+        <textarea name="description" placeholder="Give some detail about the item e.g colour" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:90px;"></textarea>
       </label>
       <label>Location
         <input type="text" name="location" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
@@ -31,6 +31,9 @@
       <label>Contact Phone
         <input type="tel" name="contactPhone" value="<%= user.phone %>" pattern="03[0-9]{9}" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>
+      <label>Verification Question (found items only — kept private, used to confirm the real owner)
+  <input type="text" name="verificationQuestion" placeholder="e.g. What's written inside the wallet?" style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+</label>
       <label>Contact Email
         <input type="email" name="contactEmail" value="<%= user.email %>" required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
       </label>

@@ -14,6 +14,7 @@ document.addEventListener('click', function (event) {
   if (link.target === '_blank') return;
   if (link.href.indexOf('tel:') === 0) return;
   if (link.href.indexOf('https://wa.me') === 0) return;
+  if (link.getAttribute('href') === '#') return;
 
   var loader = document.getElementById('page-loader');
   if (loader) {
