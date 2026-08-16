@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Something went wrong</title>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container" style="max-width: 480px; padding-top: 80px; text-align: center;">
+    <h2 style="font-size: 22px;">⚠️ <%= title || 'Something went wrong' %></h2>
+    <p style="font-size: 16px; color: var(--color-muted); margin: 20px 0 30px;">
+      <%= message %>
+    </p>
+    <a href="javascript:history.back()" class="btn">← Go Back</a>
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
