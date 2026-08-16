@@ -351,7 +351,7 @@ footer {
   }
 
   .post-card p {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.4;
   }
 
@@ -383,7 +383,7 @@ footer {
     font-size: 20px;
   }
   .post-card p {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .stamp {
@@ -494,7 +494,7 @@ footer {
   padding: 4px;
 }
 .location-box {
-  display: flex;
+  display:flex;
   align-items: center;
   gap: 8px;
   background: var(--color-bg);
@@ -509,7 +509,7 @@ footer {
 }
 .location-box::before {
   content: '📍';
-  font-size: 16px;
+  font-size: 20px;
 }
 
 
