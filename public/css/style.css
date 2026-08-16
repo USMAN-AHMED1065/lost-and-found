@@ -340,6 +340,21 @@ footer {
     transform: translateY(4px);
     box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 5px rgba(28, 36, 43, 0.2);
   }
+
+  .location-box {
+    font-size: 16px;
+    padding: 12px 16px;
+    font-weight: 700;
+  }
+  .location-box::before {
+    font-size: 18px;
+  }
+
+  .post-card p {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
   .theme-toggle {
     width: 100%;
     padding: 14px;
