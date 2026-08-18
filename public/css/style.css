@@ -67,6 +67,9 @@ a:hover { text-decoration: underline; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 500;
 }
 .navbar .brand {
   display: flex;
@@ -96,21 +99,21 @@ a:hover { text-decoration: underline; }
 }
 .navbar nav a {
   display: inline-block;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 700;
-  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 7px;
   background: var(--color-primary);
   color: #fff;
-  box-shadow: 0 4px 0 var(--color-primary-dark), 0 6px 10px rgba(28, 36, 43, 0.18);
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  box-shadow: 0 1px 2px rgba(28, 36, 43, 0.15);
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
 }
 .navbar nav a:hover {
+  background: var(--color-primary-dark);
   text-decoration: none;
 }
 .navbar nav a:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 5px rgba(28, 36, 43, 0.18);
+  transform: scale(0.97);
 }
 
 .theme-toggle {
@@ -123,57 +126,58 @@ a:hover { text-decoration: underline; }
   color: var(--color-ink);
 }
 
-/* Buttons — 3D pressable style */
+/* Buttons — compact, professional style */
 .btn, .btn-outline, .btn-danger, button[type="submit"] {
-  display: inline-block;
-  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 7px;
   font-family: 'Public Sans', sans-serif;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 7px 14px;
   cursor: pointer;
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
 }
 
 .btn, button[type="submit"] {
   background: var(--color-primary);
   color: #fff;
-  border: none;
-  padding: 13px 24px;
-  font-size: 16px;
-  box-shadow: 0 5px 0 var(--color-primary-dark), 0 8px 14px rgba(28, 36, 43, 0.2);
+  box-shadow: 0 1px 2px rgba(28, 36, 43, 0.15);
 }
 .btn:hover, button[type="submit"]:hover {
-  background: var(--color-primary);
+  background: var(--color-primary-dark);
   text-decoration: none;
 }
 .btn:active, button[type="submit"]:active {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 5px rgba(28, 36, 43, 0.2);
+  transform: scale(0.97);
 }
 
 .btn-outline {
   background: var(--color-surface);
   color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  padding: 11px 22px;
-  font-size: 15px;
-  box-shadow: 0 4px 0 var(--color-border), 0 6px 10px rgba(28, 36, 43, 0.12);
+  border-color: var(--color-border);
+}
+.btn-outline:hover {
+  background: var(--color-bg);
+  text-decoration: none;
 }
 .btn-outline:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--color-border), 0 2px 5px rgba(28, 36, 43, 0.12);
+  transform: scale(0.97);
 }
 
 .btn-danger {
-  background: #B4483A;
-  color: #fff;
-  border: none;
-  padding: 11px 22px;
-  font-size: 15px;
-  box-shadow: 0 5px 0 #8A362B, 0 8px 14px rgba(28, 36, 43, 0.2);
+  background: #fff;
+  color: #B4483A;
+  border-color: #E8C4BE;
+}
+.btn-danger:hover {
+  background: #FBEEEC;
 }
 .btn-danger:active {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0 #8A362B, 0 2px 5px rgba(28, 36, 43, 0.2);
+  transform: scale(0.97);
 }
 
 /* Claim-tag post card */
@@ -289,144 +293,6 @@ footer {
 }
 
 /* Mobile responsiveness */
-/* @media (max-width: 640px) {
-  body {
-    font-size: 17px;
-  }
-
-  h1 { font-size: 24px; }
-  h2 { font-size: 20px; }
-  h3 { font-size: 18px; }
-
-  .navbar {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 16px;
-    gap: 10px;
-  }
-  .navbar .brand {
-    font-size: 19px;
-    justify-content: center;
-    text-align: center;
-  }
-  .navbar .brand img {
-    height: 34px;
-  }
-  .navbar .tagline {
-    text-align: center;
-  }
-  .navbar nav {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-  .navbar nav a {
-    display: block;
-    padding: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 12px;
-    background: var(--color-primary);
-    color: #fff;
-    text-align: center;
-    box-shadow: 0 5px 0 var(--color-primary-dark), 0 8px 14px rgba(28, 36, 43, 0.2);
-    transition: transform 0.08s ease, box-shadow 0.08s ease;
-  }
-  .navbar nav a:hover {
-    text-decoration: none;
-  }
-  .navbar nav a:active {
-    transform: translateY(4px);
-    box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 5px rgba(28, 36, 43, 0.2);
-  }
-
-  .location-box {
-    font-size: 16px;
-    padding: 12px 16px;
-    font-weight: 700;
-  }
-  .location-box::before {
-    font-size: 18px;
-  }
-
-  .post-card p {
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .theme-toggle {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    border-radius: 10px;
-  }
-
-  .container {
-    padding: 0 14px;
-  }
-
-  .posts-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-  .post-card {
-    padding: 20px;
-    padding-top: 26px;
-  }
-  .post-card img {
-    height: 230px;
-  }
-  .post-card h3 {
-    font-size: 20px;
-  }
-  .post-card p {
-    font-size: 14px;
-  }
-
-  .stamp {
-    font-size: 16px;
-    padding: 9px 16px;
-  }
-
-  .contact-options {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .contact-options a, .contact-options button {
-    padding: 16px;
-    font-size: 17px;
-    width: 100%;
-  }
-
-  .btn, .btn-outline, .btn-danger, button[type="submit"] {
-    padding: 16px 20px;
-    font-size: 17px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .filter-bar {
-    flex-direction: column;
-  }
-  .filter-bar select, .filter-bar input, .filter-bar button {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-  }
-
-  form label {
-    font-size: 16px;
-  }
-  form input, form textarea, form select {
-    font-size: 16px !important;
-    padding: 14px !important;
-  }
-} */
-
-/* Mobile responsiveness */
 @media (max-width: 640px) {
   body {
     font-size: 17px;
@@ -461,22 +327,21 @@ footer {
   }
   .navbar nav a {
     display: block;
-    padding: 12px 16px;          /* smaller */
-    font-size: 15px;             /* smaller */
-    font-weight: 700;
-    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
     background: var(--color-primary);
     color: #fff;
     text-align: center;
-    box-shadow: 0 4px 0 var(--color-primary-dark), 0 6px 10px rgba(28, 36, 43, 0.18);
-    transition: transform 0.08s ease, box-shadow 0.08s ease;
+    box-shadow: 0 1px 2px rgba(28, 36, 43, 0.15);
   }
   .navbar nav a:hover {
+    background: var(--color-primary-dark);
     text-decoration: none;
   }
   .navbar nav a:active {
-    transform: translateY(3px);
-    box-shadow: 0 1px 0 var(--color-primary-dark), 0 2px 5px rgba(28, 36, 43, 0.18);
+    transform: scale(0.97);
   }
 
   .location-box {
@@ -511,7 +376,7 @@ footer {
     padding-top: 20px;
   }
   .post-card img {
-    height: 140px;               /* slightly shorter to fit better */
+    height: 140px;
   }
   .post-card h3 {
     font-size: 15px;
@@ -532,20 +397,22 @@ footer {
   }
   .contact-options a,
   .contact-options button {
-    padding: 10px 12px;          /* smaller */
-    font-size: 13px;             /* smaller */
+    padding: 10px 12px;
+    font-size: 13px;
     width: 100%;
   }
 
-  /* Smaller buttons */
+  /* Smaller buttons — compact professional style */
   .btn,
   .btn-outline,
   .btn-danger,
   button[type="submit"] {
-    padding: 11px 16px;          /* smaller */
-    font-size: 14px;             /* smaller */
-    width: 100%;
-    text-align: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    width: auto;
+  }
+  .action-row {
+    gap: 8px;
   }
 
   .filter-bar {
@@ -570,10 +437,6 @@ footer {
   }
 }
 
-
-
-
-
 /* Tablet responsiveness */
 @media (min-width: 641px) and (max-width: 1024px) {
   .posts-grid {
@@ -583,6 +446,7 @@ footer {
     padding: 0 24px;
   }
 }
+
 /* Lightbox */
 .post-card img {
   cursor: pointer;
@@ -642,7 +506,7 @@ footer {
   padding: 4px;
 }
 .location-box {
-  display:flex;
+  display: flex;
   align-items: center;
   gap: 8px;
   background: var(--color-bg);
@@ -659,8 +523,6 @@ footer {
   content: '📍';
   font-size: 20px;
 }
-
-
 
 #page-loader {
   position: fixed;
