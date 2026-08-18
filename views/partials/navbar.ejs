@@ -1,4 +1,4 @@
-<div id="page-loader">
+<!-- <div id="page-loader">
   <img src="/images/logo.png" alt="UET Lost and Found">
   <h2 class="loader-title">UET Lost &amp; Found</h2>
   <p class="loader-subtitle">Developed by Usman Ahmed</p>
@@ -31,4 +31,42 @@
     <% } %>
     <button id="theme-toggle" class="theme-toggle" type="button">🌙 Dark</button>
   </nav>
+</header> -->
+
+
+
+<div id="page-loader">
+  <img src="/images/logo.png" alt="UET Lost and Found">
+  <h2 class="loader-title">UET Lost &amp; Found</h2>
+  <p class="loader-subtitle">Developed by Usman Ahmed</p>
+  <div class="loader-spinner"></div>
+</div>
+
+<header class="navbar">
+  <div class="brand">
+    <img src="/images/logo.png" alt="UET Logo">
+    <div>
+      Lost &amp; Found
+      <span class="tagline">UET Lahore</span>
+    </div>
+  </div>
+
+  <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open menu">☰</button>
+
+  <nav id="nav-links">
+    <a href="/posts">Browse Items</a>
+    <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn) { %>
+      <a href="/posts/new">+ Report an item</a>
+      <a href="/posts/saved">Saved</a>
+      <a href="/posts/claims/mine">My Claims</a>
+      <a href="/profile">Profile</a>
+      <a href="/auth/logout">Log out</a>
+    <% } else { %>
+      <a href="/auth/login">Log in</a>
+      <a href="/auth/signup">Sign up</a>
+    <% } %>
+    <button id="theme-toggle" class="theme-toggle" type="button">🌙 Dark</button>
+  </nav>
 </header>
+
+<div id="nav-overlay"></div>
