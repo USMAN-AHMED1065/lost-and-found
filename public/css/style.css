@@ -68,7 +68,7 @@ a:hover { text-decoration: underline; }
   gap: 12px;
   position: sticky;
   top: 0;
-  z-index: 500;
+  z-index: 900;
 }
 .navbar .brand {
   display: flex;
@@ -141,7 +141,7 @@ a:hover { text-decoration: underline; }
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.4);
-  z-index: 600;
+  z-index: 800;
 }
 #nav-overlay.active {
   display: block;
