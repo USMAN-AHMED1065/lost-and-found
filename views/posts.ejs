@@ -44,84 +44,70 @@
           <% if (post.postedBy) { %>
             <p style="font-size:13px; color: var(--color-muted); margin: 8px 0 0;">
               Posted by: <%= post.postedBy.username %>
-            </p> 
+            </p>
 
-            <div class="contact-options">
-              <a href="tel:<%= post.contactPhone %>">📞 Call</a>
-              <a href="https://wa.me/92<%= post.contactPhone.slice(1) %>" target="_blank">💬 WhatsApp</a>
-              <button type="button" class="copy-btn" data-phone="<%= post.contactPhone %>">📋 Copy</button>
-            </div>
+            <!-- Compact icon + labeled actions -->
+            <div class="icon-actions">
+              <a href="tel:<%= post.contactPhone %>" class="icon-btn icon-call" title="Call">📞</a>
+              <a href="https://wa.me/92<%= post.contactPhone.slice(1) %>" target="_blank" class="icon-btn icon-whatsapp" title="WhatsApp">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M12.004 2C6.484 2 2.004 6.48 2.004 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.34A9.94 9.94 0 0012.004 22c5.52 0 10-4.48 10-10S17.524 2 12.004 2zm0 18.2c-1.68 0-3.24-.5-4.55-1.36l-.33-.2-3.01.8.8-2.94-.21-.34a8.18 8.18 0 01-1.28-4.36c0-4.53 3.68-8.2 8.2-8.2s8.2 3.68 8.2 8.2-3.68 8.2-8.2 8.2z"/>
+                </svg>
+              </a>
+              <!-- <button type="button" class="icon-btn-labeled copy-btn" data-phone="<%= post.contactPhone %>">📋 Copy</button> -->
 
-            <div class="action-row">
               <% if (isLoggedIn && post.postedBy._id.toString() !== userId) { %>
                 <form action="/posts/<%= post._id %>/report?_method=POST" method="POST" style="display:inline">
-                  <button type="submit" class="btn-outline">🚩 Report</button>
+                  <button type="submit" class="icon-btn-labeled danger">🚩 Report</button>
                 </form>
               <% } %>
 
               <% if (isLoggedIn) { %>
                 <% const isSaved = savedIds.includes(post._id.toString()); %>
                 <form action="/posts/<%= post._id %>/<%= isSaved ? 'unsave' : 'save' %>?_method=POST" method="POST" style="display:inline">
-                  <button type="submit" class="btn-outline"><%= isSaved ? '✅ Saved' : '🔖 Save' %></button>
+                  <button type="submit" class="icon-btn-labeled <%= isSaved ? 'filled' : '' %>"><%= isSaved ? '✅ Saved' : '🔖 Save' %></button>
                 </form>
               <% } %>
 
-              <!-- Claim button (non-owners, found + unresolved only) -->
               <% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
-                <!-- <a href="#" class="btn-outline" onclick="document.getElementById('claim-form-<%= post._id %>').style.display='block'; return false;">🙋 This is mine</a> -->
-              <button type="button" class="btn-outline" onclick="document.getElementById('claim-form-<%= post._id %>').style.display='block';">🙋 This is mine</button>
-
+                <button type="button" class="icon-btn-labeled filled" onclick="document.getElementById('claim-form-<%= post._id %>').style.display='block';">🙋 This is mine</button>
               <% } %>
             </div>
 
-            <!-- Hidden claim form -->
-            <!-- <% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
+            <!-- Claim form (hidden by default) -->
+            <% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
               <div id="claim-form-<%= post._id %>" style="display:none; margin-top:10px;">
                 <form action="/posts/<%= post._id %>/claim" method="POST">
-                  <textarea name="message" placeholder="Describe why this item is yours (e.g. unique marks, what's inside)..." required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:70px;"></textarea>
+                  <textarea name="message" placeholder="Describe why this item is yours..." required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:70px;"></textarea>
+                  <% if (post.verificationQuestion) { %>
+                    <label style="display:block; margin-top:8px; font-size:14px; font-weight:600;"><%= post.verificationQuestion %></label>
+                    <input type="text" name="answer" required placeholder="Your answer..." style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
+                  <% } %>
                   <button type="submit" class="btn" style="margin-top:6px;">Submit Claim</button>
                 </form>
               </div>
             <% } %>
+
+            <!-- Owner actions (labeled) -->
+            <% if (isLoggedIn && post.postedBy && post.postedBy._id.toString() === userId) { %>
+              <div class="icon-actions">
+                <a href="/posts/<%= post._id %>/edit" class="icon-btn-labeled">✏️ Edit</a>
+                <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display:inline">
+                  <button type="submit" class="icon-btn-labeled danger">🗑️ Delete</button>
+                </form>
+                <form action="/posts/<%= post._id %>/resolve?_method=POST" method="POST" style="display:inline">
+                  <button type="submit" class="icon-btn-labeled"><%= post.resolved ? '↩️ Reopen' : '✅ Resolve' %></button>
+                </form>
+                <a href="/posts/<%= post._id %>/matches" class="icon-btn-labeled">🔍 Matches</a>
+                <% if (post.claims && post.claims.length > 0) { %>
+                  <a href="/posts/<%= post._id %>/claims" class="icon-btn-labeled filled">📋 Claims (<%= post.claims.length %>)</a>
+                <% } %>
+              </div>
+            <% } %>
+
           <% } else { %>
             <p style="font-size:13px; color: var(--color-muted);">Posted by: Unknown</p>
-          <% } %> -->
-
-<% if (isLoggedIn && post.postedBy._id.toString() !== userId && post.type === 'found' && !post.resolved) { %>
-  <div id="claim-form-<%= post._id %>" style="display:none; margin-top:10px;">
-    <form action="/posts/<%= post._id %>/claim" method="POST">
-      <textarea name="message" placeholder="Describe why this item is yours..." required style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border); min-height:70px;"></textarea>
-
-      <% if (post.verificationQuestion) { %>
-        <label style="display:block; margin-top:8px; font-size:14px; font-weight:600;">
-          <%= post.verificationQuestion %>
-        </label>
-        <input type="text" name="answer" required placeholder="Your answer..." style="width:100%; padding:8px; border-radius:8px; border:1px solid var(--color-border);">
-      <% } %>
-
-      <button type="submit" class="btn" style="margin-top:6px;">Submit Claim</button>
-    </form>
-  </div>
-<% } %>
-
-
-
-          <% if (isLoggedIn && post.postedBy && post.postedBy._id.toString() === userId) { %>
-            <div class="action-row">
-              <a href="/posts/<%= post._id %>/edit" class="btn-outline">Edit</a>
-              <form action="/posts/<%= post._id %>?_method=DELETE" method="POST" style="display:inline">
-                <button type="submit" class="btn-danger">Delete</button>
-              </form>
-              <form action="/posts/<%= post._id %>/resolve?_method=POST" method="POST" style="display:inline">
-                <button type="submit" class="btn-outline"><%= post.resolved ? '↩️ Reopen' : '✅ Resolve' %></button>
-              </form>
-              <a href="/posts/<%= post._id %>/matches" class="btn-outline">🔍 Matches</a>
-
-              <!-- View Claims link (owners only, if claims exist) -->
-              <% if (post.claims && post.claims.length > 0) { %>
-                <a href="/posts/<%= post._id %>/claims" class="btn-outline">📋 View Claims (<%= post.claims.length %>)</a>
-              <% } %>
-            </div>
           <% } %>
         </li>
       <% }); %>
