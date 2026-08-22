@@ -79,7 +79,7 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    const posts = await Post.find(query).populate('postedBy', 'username email').sort({ createdAt: -1 });
+    const posts = await Post.find(query).populate('postedBy', 'username email').sort({ createdAt: -1 }).lean();
 
     let savedIds = [];
     if (req.session.userId) {
@@ -100,7 +100,7 @@ router.get('/saved', requireLogin, async (req, res) => {
     const user = await User.findById(req.session.userId).populate({
       path: 'savedPosts',
       populate: { path: 'postedBy', select: 'username email' }
-    });
+    }).lean();
     res.render('saved', { posts: user.savedPosts });
   } catch (err) {
     console.error(err);
@@ -112,7 +112,8 @@ router.get('/saved', requireLogin, async (req, res) => {
 router.get('/claims/mine', requireLogin, async (req, res) => {
   try {
     const posts = await Post.find({ 'claims.claimedBy': req.session.userId })
-      .populate('postedBy', 'username email phone');
+      .populate('postedBy', 'username email phone')
+      .lean();
 
     const myClaims = [];
     posts.forEach(post => {
@@ -184,7 +185,8 @@ router.get('/:id/matches', requireLogin, async (req, res) => {
 
     const oppositeType = post.type === 'lost' ? 'found' : 'lost';
     const candidates = await Post.find({ type: oppositeType, resolved: false })
-      .populate('postedBy', 'username email');
+      .populate('postedBy', 'username email')
+      .lean();
 
     const matches = candidates
       .map(candidate => ({
